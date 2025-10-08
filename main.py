@@ -6,17 +6,17 @@ import encrypt
 import decrypt
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Pymophonic — homophonic substitution cipher utility written in Python")
+    parser = argparse.ArgumentParser(description="Pymophonic — Простая утилита на языке Python для шифрования файлов омофонической заменой")
     subparsers = parser.add_subparsers(dest="command")
-    key_parser = subparsers.add_parser("key", help="Generate key")
+    key_parser = subparsers.add_parser("key", help="Генерация ключа")
     key_parser.add_argument("file_path")
     key_parser.add_argument("new_key_file_path")
     key_parser.add_argument("--codes", type=int, default=256)
     key_parser.add_argument("--bytes", type=int, default=1)
-    enc_parser = subparsers.add_parser("encrypt", help="Encrypt file")
+    enc_parser = subparsers.add_parser("encrypt", help="Зашифровать файл")
     enc_parser.add_argument("file")
     enc_parser.add_argument("key_file")
-    dec_parser = subparsers.add_parser("decrypt", help="Decrypt file")
+    dec_parser = subparsers.add_parser("decrypt", help="Расшифровать файл")
     dec_parser.add_argument("file")
     dec_parser.add_argument("key_file")
     args = parser.parse_args()
@@ -27,44 +27,45 @@ if __name__ == "__main__":
         try:
             open(args.file_path, 'r')
         except FileNotFoundError:
-            print("File not found")
+            print("Файл не найден")
             quit()
-        print("Reading file...")
+        print("Чтение файла...")
         symbols_frequency = read.symbol_frequency(args.file_path, args.codes)
-        print("Generating key...")
+        print("Генерация ключа")
         key.generate_key_file(symbols_frequency, args.bytes, args.new_key_file_path)
-        print(f"New key file {args.new_key_file_path}.pymo has been generated")
+        print(f"Новый файл ключа {args.new_key_file_path}.pymo сгенерирован")
     if args.command == "encrypt":
         try:
             open(args.file, 'r')
         except FileNotFoundError:
-            print("File for encryption not found")
+            print("Файл не найден")
             quit()
         try:
             open(args.key_file, 'r')
             if not args.key_file.endswith(".pymo"):
-                print("Not key file selected")
+                print("Выбранный файл не является ключом")
                 quit()
         except FileNotFoundError:
-            print("Key file not found")
+            print("Ключ не найден")
             quit()
-        print("Encrypting file...")
+        print("Шифрование файла...")
         encrypted_file_name = encrypt.encrypt(args.file, args.key_file)
-        print(f"File was encrypted. {encrypted_file_name}")
+        print(f"Файл зашифрован. {encrypted_file_name}")
     if args.command == "decrypt":
         try:
             open(args.file, 'r')
         except FileNotFoundError:
-            print("File for decryption not found")
+            print("Файл не найден")
             quit()
         try:
             open(args.key_file, 'r')
             if not args.key_file.endswith(".pymo"):
-                print("Not key file selected")
+                print("Выбранный файл не является ключом")
                 quit()
         except FileNotFoundError:
-            print("Key file not found")
+            print("Ключ не найден")
             quit()
-        print("Decrypting file...")
+        print("Расшифрование файла")
         decrypted_file_name = decrypt.decrypt(args.file, args.key_file)
-        print(f"File {decrypted_file_name} was decrypted")
+
+        print(f"Файл {decrypted_file_name} расшифрован")
