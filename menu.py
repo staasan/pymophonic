@@ -5,7 +5,7 @@ import encrypt
 import decrypt
 try:
     from tkinter import filedialog
-except ModuleNotFoundErrorx:
+except ModuleNotFoundError:
     print("Библиотека tkinter для Python не найдена. Установите её")
     quit()
 
@@ -19,8 +19,11 @@ def key_menu():
     while True:
         codes_amount = int(input("Сколько кодовых слов должно быть в ключе?"))
         code_bytes = int(input("Сколько байт должно содержать одно кодовое слово?"))
-        if 16**(code_bytes*2) < codes_amount:
-            print(f"Невозможно сгенерировать {codes_amount} ключей из {code_bytes} байт\n Выберите другие значения.")
+        if 16**(code_bytes*2) < codes_amount:   
+            print(f"Невозможно сгенерировать {codes_amount} ключей из {code_bytes} байт\nВыберите другие значения.")
+        if codes_amount < 66:
+            print(f"Файл шифруется в формате base32. Омофоническая замена невозможна если кодов меньше 66.\nВыберите другое значение.")
+        else: break
     print("Чтение файла...")
     symbols_frequency = read.symbol_frequency(selected_file_name,codes_amount)
     print("Генерация ключа...")
@@ -63,18 +66,17 @@ def dec_menu():
     print("Расшифрование файла...")
     try:
         decrypted_file_name = decrypt.decrypt(selected_file_name, key_file_name)
+        print(f"File {decrypted_file_name} was decrypted")
+        print("Нажмите Enter для продолжения...")
+        input()
+        os.system('cls' if os.name == 'nt' else 'clear')
+        main_menu()
     except KeyError:
         print("Неверный ключ")
         print("Нажмите Enter для продолжения...")
         input()
         os.system('cls' if os.name == 'nt' else 'clear')
         main_menu()
-        
-    print(f"File {decrypted_file_name} was decrypted")
-    print("Нажмите Enter для продолжения...")
-    input()
-    os.system('cls' if os.name == 'nt' else 'clear')
-    main_menu()
 
 
 def main_menu():

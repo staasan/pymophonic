@@ -14,7 +14,7 @@ def decrypt(encrypted_file_name,key_file):
     for symbol_number in range(0,len(encrypted_file_name)-(code_length-1),code_length):
         code = encrypted_file_name[symbol_number:symbol_number + code_length]
         decrypted_file_name += inverse_key[code]
-    decrypted_file_name = base64.b64decode(decrypted_file_name)
+    decrypted_file_name = base64.b32decode(decrypted_file_name)
 
     extension = b'.tmp'
     decrypted_file = open(decrypted_file_name+extension,'w')
@@ -26,6 +26,6 @@ def decrypt(encrypted_file_name,key_file):
     decrypted_file.close()
     with open(decrypted_file_name, 'wb') as decoded_file:
         content = open(decrypted_file_name+extension,'rb').read()
-        decoded_file.write(base64.b64decode(content))
+        decoded_file.write(base64.b32decode(content))
         os.remove(decrypted_file_name+extension)
     return decrypted_file_name.decode()
