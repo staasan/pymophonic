@@ -3,7 +3,12 @@ import read
 import key
 import encrypt
 import decrypt
-from tkinter import filedialog
+try:
+    from tkinter import filedialog
+except ModuleNotFoundErrorx:
+    print("Библиотека tkinter для Python не найдена. Установите её")
+    quit()
+
 
 def key_menu():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -88,4 +93,5 @@ def main_menu():
             case _:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("Неверный ввод")
+
 
