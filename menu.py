@@ -62,7 +62,7 @@ def dec_menu():
         key_file_name = filedialog.askopenfilename()
         if ".pymo" in key_file_name:
             break
-        print("Selected file is not a key file")
+        print("Выбранный файл не является ключом")
     print("Расшифрование файла...")
     try:
         decrypted_file_name = decrypt.decrypt(selected_file_name, key_file_name)
@@ -95,6 +95,7 @@ def main_menu():
             case _:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("Неверный ввод")
+
 
 
 
