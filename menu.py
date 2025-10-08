@@ -19,8 +19,8 @@ def key_menu():
     while True:
         codes_amount = int(input("Сколько кодовых слов должно быть в ключе?"))
         code_bytes = int(input("Сколько байт должно содержать одно кодовое слово?"))
-        if 16**code_bytes < codes_amount:
-            print(f"Невозможно сгенерировать {codes_amount} ключей из {code_bytes} байт/n Выберите другие значения.")
+        if 16**(code_bytes*2) < codes_amount:
+            print(f"Невозможно сгенерировать {codes_amount} ключей из {code_bytes} байт\n Выберите другие значения.")
     print("Чтение файла...")
     symbols_frequency = read.symbol_frequency(selected_file_name,codes_amount)
     print("Генерация ключа...")
@@ -93,6 +93,7 @@ def main_menu():
             case _:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("Неверный ввод")
+
 
 
 
