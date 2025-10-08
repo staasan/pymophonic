@@ -66,7 +66,7 @@ def dec_menu():
     print("Расшифрование файла...")
     try:
         decrypted_file_name = decrypt.decrypt(selected_file_name, key_file_name)
-        print(f"File {decrypted_file_name} was decrypted")
+        print(f"Файл {decrypted_file_name} расшифрован")
         print("Нажмите Enter для продолжения...")
         input()
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -95,6 +95,7 @@ def main_menu():
             case _:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("Неверный ввод")
+
 
 
 
